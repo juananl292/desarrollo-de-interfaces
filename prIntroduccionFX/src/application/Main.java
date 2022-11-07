@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 public class Main extends Application {
@@ -32,7 +33,8 @@ public class Main extends Application {
 				//}
 			//});
 			Label lb = new Label("hola mundo");
-		//	StackPane panel = new StackPane();
+			//StackPane panel = new StackPane();
+			
 			//panel.getChildren().add(btn);
 //			panel.setAlignment(lb,Pos.TOP_CENTER);
 //			panel.setAlignment(btn,Pos.CENTER);
@@ -57,27 +59,23 @@ public class Main extends Application {
 			*/
 			//GridPane
 			
-			GridPane panel= new GridPane();
+			//GridPane panel= new GridPane();
 			
-			Button btn = new Button("Click aqui1");
-			Button btn1 = new Button("Click aqui2");
-			Button btn2 = new Button("Click aqui3");
-			Button btn3 = new Button("Click aqui4");
-			panel.setVgap(12);
-			panel.setHgap(12);
-			panel.setPadding(new Insets(15));
+//			Button btn = new Button("Click aqui1");
+//			Button btn1 = new Button("Click aqui2");
+//			Button btn2 = new Button("Click aqui3");
+//			Button btn3 = new Button("Click aqui4");
+//			panel.setVgap(12);
+//			panel.setHgap(12);
+//			panel.setPadding(new Insets(15));
+//			
+//			panel.add(btn, 0, 0);
+//			panel.add(btn1, 0, 1);
+//			panel.add(btn2, 1, 0);
+//			panel.add(btn3, 1, 1);
 			
-			panel.add(btn, 0, 0);
-			panel.add(btn1, 0, 1);
-			panel.add(btn2, 1, 0);
-			panel.add(btn3, 1, 1);
-			
-			Scene scene = new Scene(panel,1200,800);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			primaryStage.setTitle("Programa de Aleja");
-			primaryStage.getIcons().add(new Image("/application/icon.png"));
-			
+			//Scene scene = new Scene(panel,1200,800);
+			//primaryStage.setScene(scene);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
