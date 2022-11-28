@@ -25,6 +25,8 @@ public class SampleController {
 	@FXML
 	private Button btnAñadir;
 	@FXML
+	private Button btnBorrar;
+	@FXML
 	private TableView <Videojuego>tableJuego;
 	@FXML
 	private TableColumn <Videojuego, String> columNombre;
@@ -37,7 +39,7 @@ public class SampleController {
 
 	private ObservableList<Videojuego> listaVideojuegos =FXCollections.observableArrayList(new Videojuego("Fifa 23", 49, "PSP5", "PEGI 3"));
 
-	public 	ObservableList<String> consolas = FXCollections.observableArrayList("PSP5","PSP4", "Nintendo", "XBOX");
+	public 	ObservableList<String> consolas = FXCollections.observableArrayList("PS5","PS4", "Nintendo", "XBOX","PC");
 	public 	ObservableList<String> pegis= FXCollections.observableArrayList("PEGI 3","PEGI 7", "PEGI 12", "PEGI 16", "PEGI 18");
 	
 	@FXML
@@ -55,8 +57,19 @@ public class SampleController {
 	}
 	@FXML
 	public void aniadirVideojuego(ActionEvent event) {
+		
+		if(txtNombre.getText().isBlank()||
+				txtPrecio.getText().isBlank()||
+				opcionConsola.getSelectionModel().isEmpty()||
+				opcionPegi.getSelectionModel().isEmpty()) {
+			Alert alerta= new Alert(AlertType.WARNING);
+			alerta.setTitle("Informacion incompleta");
+			alerta.setHeaderText("Falta informacion en algun campo");
+			alerta.setContentText("Por favor introduzca todos los campos");
+            alerta.showAndWait();
+		}else {
 		 if (esNumero(txtPrecio.getText())) {
-		Videojuego juego1 = new Videojuego(txtNombre.getText().toString(),
+		Videojuego juego1 = new Videojuego(txtNombre.getText(),
 				Integer.parseInt(txtPrecio.getText()),
 				opcionConsola.getValue().toString(),
 				opcionPegi.getValue().toString());
@@ -74,11 +87,13 @@ public class SampleController {
             alerta.setContentText("Por favor introduzca un precio correcto");
             alerta.showAndWait();
 		 }
+		}
 		
 	}
     @FXML
     public void borrarVideojuego(ActionEvent event) {
-        System.out.println("Borrando un videojuego");
+      int indiceSeleccionado = tableJuego.getSelectionModel().getSelectedIndex();
+      tableJuego.getItems().remove(indiceSeleccionado);
     }
 	
 	public boolean esNumero(String s) {
