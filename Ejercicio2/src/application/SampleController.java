@@ -1,5 +1,10 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,9 +56,95 @@ public class SampleController {
 		columConsola.setCellValueFactory(new PropertyValueFactory<>("consola"));
 		columPegi.setCellValueFactory(new PropertyValueFactory<>("pegi"));
 		
-		tableJuego.setItems(listaVideojuegos);
+		ObservableList<Videojuego>listaVideojuegosBD=getVideojuegosBD();
+		
+		tableJuego.setItems(listaVideojuegosBD);
 		
 		
+	}
+	//Para refrescar la tabla despues de insertar un nuevo juego en la base de datos.
+	private void refresh() {
+		ObservableList<Videojuego>listaVideojuegosBD=getVideojuegosBD();
+		
+		tableJuego.setItems(listaVideojuegosBD);
+	}
+	//Borrar de bbdd
+	private void borrarVideojuegosBD(Videojuego v) {
+		DatabaseConnection dbConnection= new DatabaseConnection();
+		Connection connection = dbConnection.getConnection();
+		String nombre=v.getNombre();
+		String query = "delete from videojuegos where nombre =?";
+		
+			try {
+				PreparedStatement ps = connection.prepareStatement(query);
+				ps.setString(1, nombre);
+				ps.executeUpdate();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	//Prueba de insercion en bbdd. Funciona correctamente
+	private void setVideojuegosBD(Videojuego v) {
+		DatabaseConnection dbConnection= new DatabaseConnection();
+		Connection connection = dbConnection.getConnection();
+		
+		String query = "insert into videojuegos(nombre, precio, consola, pegi)"+"values (?,?,?,?)";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setString(1, v.getNombre());
+			ps.setInt(2, v.getPrecio());
+			ps.setString(3, v.getConsola());
+			ps.setString(4, v.getPegi());
+			ps.executeUpdate();
+			
+			connection.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//Coger juegos de bbdd
+	private ObservableList<Videojuego> getVideojuegosBD(){
+		/**
+		 * Creamos la observable list donde almacenaremos los videojuegos obtenidos de bd
+		 */
+		ObservableList<Videojuego>listaVideojuegosBD=
+				FXCollections.observableArrayList();
+		/*
+		 * Nos conectamos a la bbdd
+		 * 
+		 */
+		DatabaseConnection dbConnection= new DatabaseConnection();
+		Connection connection = dbConnection.getConnection();
+		
+		String query = "select * from videojuegos";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs= ps.executeQuery();
+			
+			while(rs.next()) {
+				Videojuego videojuego= new Videojuego(
+						rs.getString("nombre"),
+						rs.getInt("precio"),
+						rs.getString("consola"),
+						rs.getString("pegi")
+						);
+				
+				listaVideojuegosBD.add(videojuego);
+			}
+			
+			
+			//Cerramos la conexion
+			connection.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		return listaVideojuegosBD;
 	}
 	@FXML
 	public void aniadirVideojuego(ActionEvent event) {
@@ -75,11 +166,16 @@ public class SampleController {
 				opcionPegi.getValue().toString());
 		
 		listaVideojuegos.add(juego1);
+		setVideojuegosBD(juego1);
+		refresh();
+		
+		
 		
 		txtNombre.clear();
 		txtPrecio.clear();
 		opcionConsola.getSelectionModel().clearSelection();
 		opcionPegi.getSelectionModel().clearSelection();
+		
 		 }else {
 			   Alert alerta = new Alert(AlertType.ERROR);
             alerta.setTitle("Error al insertar");
@@ -93,7 +189,21 @@ public class SampleController {
     @FXML
     public void borrarVideojuego(ActionEvent event) {
       int indiceSeleccionado = tableJuego.getSelectionModel().getSelectedIndex();
-      tableJuego.getItems().remove(indiceSeleccionado);
+      System.out.println("indice a borrar: "+indiceSeleccionado);
+      if(indiceSeleccionado<=-1) {
+    	  Alert alerta = new Alert(AlertType.ERROR);
+    	  alerta.setTitle("Error al borrar");
+    	  alerta.setHeaderText("no se ha seleccionado ningun videojuego");
+    	  alerta.setContentText("porfavor seleciona un videojuego");
+    	  alerta.showAndWait();
+      }else {
+    	  Videojuego j1=  tableJuego.getSelectionModel().getSelectedItem();
+    	  borrarVideojuegosBD(j1);
+    	  tableJuego.getItems().remove(indiceSeleccionado);
+    	  tableJuego.getSelectionModel().clearSelection();
+    	  
+      }
+   
     }
 	
 	public boolean esNumero(String s) {

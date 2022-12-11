@@ -9,6 +9,7 @@ public class Videojuego {
 	private SimpleIntegerProperty precio;
 	private SimpleStringProperty consola;
 	private SimpleStringProperty pegi;
+	
 	  public Videojuego(String nombre, int precio, String consola,
 	            String pegi) {
 	        super();
@@ -18,29 +19,29 @@ public class Videojuego {
 	        this.pegi = new SimpleStringProperty(pegi);
 
 	    }
-	public SimpleStringProperty getNombre() {
-		return nombre;
+	public String getNombre() {
+		return nombre.get();
 	}
-	public void setNombre(SimpleStringProperty nombre) {
-		this.nombre = nombre;
+	public void setNombre(String nombre) {
+		this.nombre = new SimpleStringProperty(nombre);
 	}
-	public SimpleIntegerProperty getPrecio() {
-		return precio;
+	public int getPrecio() {
+		return precio.get();
 	}
-	public void setPrecio(SimpleIntegerProperty precio) {
-		this.precio = precio;
+	public void setPrecio(int precio) {
+		this.precio = new SimpleIntegerProperty(precio);
 	}
-	public SimpleStringProperty getConsola() {
-		return consola;
+	public String getConsola() {
+		return consola.get();
 	}
-	public void setConsola(SimpleStringProperty consola) {
-		this.consola = consola;
+	public void setConsola(String consola) {
+		this.consola = new SimpleStringProperty (consola);
 	}
-	public SimpleStringProperty getPegi() {
-		return pegi;
+	public String getPegi() {
+		return pegi.get();
 	}
-	public void setPegi(SimpleStringProperty pegi) {
-		this.pegi = pegi;
+	public void setPegi(String pegi) {
+		this.pegi = new SimpleStringProperty(pegi);
 	}
 	
 	

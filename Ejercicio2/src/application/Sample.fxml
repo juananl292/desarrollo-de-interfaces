@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="803.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
-      <MenuBar prefHeight="25.0" prefWidth="600.0">
+      <MenuBar prefHeight="35.0" prefWidth="803.0">
         <menus>
           <Menu mnemonicParsing="false" text="Inicio">
             <items>
@@ -37,7 +37,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <BorderPane layoutY="23.0" prefHeight="378.0" prefWidth="303.0">
+      <BorderPane id="panelT" layoutY="23.0" prefHeight="378.0" prefWidth="303.0">
          <top>
             <Label text="Nuevo videojuego" BorderPane.alignment="CENTER">
                <font>
@@ -52,7 +52,7 @@
             </Label>
          </top>
          <left>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox id="vDatos" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Nombre">
                      <VBox.margin>
@@ -107,8 +107,8 @@
             </VBox>
          </center>
       </BorderPane>
-      <SplitPane layoutX="311.0" layoutY="22.0" prefHeight="453.0" prefWidth="11.0" />
-      <BorderPane layoutX="329.0" layoutY="23.0" prefHeight="378.0" prefWidth="270.0">
+      <SplitPane layoutX="311.0" layoutY="34.0" prefHeight="467.0" prefWidth="11.0" />
+      <BorderPane layoutX="329.0" layoutY="39.0" prefHeight="431.0" prefWidth="474.0">
          <top>
             <Label text="Videojuegos" BorderPane.alignment="CENTER">
                <font>
@@ -120,17 +120,17 @@
             </Label>
          </top>
          <bottom>
-            <TableView fx:id="tableJuego" prefHeight="333.0" prefWidth="286.0" BorderPane.alignment="CENTER">
+            <TableView id="tabla" fx:id="tableJuego" prefHeight="328.0" prefWidth="448.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="columNombre" prefWidth="63.0" text="Nombre" />
-                <TableColumn fx:id="columPrecio" prefWidth="73.0" text="Precio" />
-                  <TableColumn fx:id="columConsola" prefWidth="67.0" text="Consola" />
-                  <TableColumn fx:id="columPegi" prefWidth="66.0" text="PEGI" />
+                <TableColumn fx:id="columNombre" prefWidth="124.0" text="Nombre" />
+                <TableColumn fx:id="columPrecio" prefWidth="115.0" text="Precio" />
+                  <TableColumn fx:id="columConsola" prefWidth="138.0" text="Consola" />
+                  <TableColumn fx:id="columPegi" prefWidth="73.0" text="PEGI" />
               </columns>
             </TableView>
          </bottom>
       </BorderPane>
-      <Button fx:id="btnAñadir" layoutX="101.0" layoutY="401.0" mnemonicParsing="false" onAction="#aniadirVideojuego" text="Añadir" />
-      <Button fx:id="btnBorrar" layoutX="152.0" layoutY="401.0" mnemonicParsing="false" onAction="#borrarVideojuego" text="Borrar" />
+      <Button fx:id="btnAñadir" layoutX="70.0" layoutY="401.0" mnemonicParsing="false" onAction="#aniadirVideojuego" text="Añadir" />
+      <Button fx:id="btnBorrar" layoutX="172.0" layoutY="401.0" mnemonicParsing="false" onAction="#borrarVideojuego" text="Borrar" />
    </children>
 </Pane>
